@@ -8,13 +8,15 @@
     "build": "astro build && npm run encrypt",
     "build:raw": "astro build",
     "encrypt": "node scripts/encrypt.mjs",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "astro": "^4.15.0"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",
+    "gh-pages": "^6.1.1",
     "staticrypt": "^3.2.1"
   }
 }

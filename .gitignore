@@ -5,3 +5,7 @@ dist/
 .env.production
 .DS_Store
 .staticrypt.json
+
+# Ignore raw Markdown files so unencrypted Q&A notes never get pushed to GitHub
+src/content/notes/*
+!src/content/notes/.gitkeep

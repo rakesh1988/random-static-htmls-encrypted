@@ -1,61 +1,40 @@
-# Encrypted Markdown Q&A Notes for GitHub Pages
+# Encrypted Markdown Q&A Notes (Free GitHub Pages Setup)
 
-A mobile-friendly, secure static site built with **Astro** and **StatiCrypt**. It compiles Markdown (`.md`) notes into responsive HTML pages and encrypts them using client-side **AES-256-GCM** encryption before deploying to **GitHub Pages**.
+This project compiles Markdown (`.md`) study notes into static HTML pages, encrypts them client-side with **StatiCrypt (AES-256-GCM)**, and publishes **ONLY the encrypted HTML files** to GitHub Pages.
 
 ---
 
-## 🚀 Quick Start Guide
+## 🔒 How Confidentiality Works (Zero Unencrypted Source on GitHub)
 
-### 1. Adding New Markdown (.md) Files
-Simply add your Markdown files into the `src/content/notes/` directory.
+- **Raw `.md` files**: Kept ONLY on your local machine (`src/content/notes/`). They are in `.gitignore` and **never** pushed to GitHub.
+- **Encrypted Output**: When you deploy, local scripts compile and encrypt the site into `dist/`, then publish only the encrypted HTML files to the `gh-pages` branch.
+- **GitHub Pages**: Hosts the public website for FREE while ensuring 100% of the pages require a password to view.
 
-Example structure:
-```markdown
----
-title: "Unit 1: Fundamentals Q&A Notes"
-description: "Core questions and answers covering Semester 2 foundational concepts."
-subject: "Computer Architecture"
-date: "2026-09-13"
-tags: ["Unit-1", "Architecture", "Exams"]
 ---
 
-# Your Markdown Content Here...
+## 🚀 How to Add Notes & Deploy
+
+### 1. Add your `.md` files locally
+Place your Markdown notes in `src/content/notes/` (e.g. `src/content/notes/unit-3-qna.md`).
+
+### 2. Set your password in `.env`
+Ensure `.env` contains your chosen encryption password:
+```env
+STATICRYPT_PASSWORD=your_secret_password
 ```
 
----
+### 3. Deploy to GitHub Pages with 1 Command
+Run the following command in your terminal:
+```bash
+npm run deploy
+```
 
-### 2. Local Development & Testing
-
-- **Edit raw notes with live preview:**
-  ```bash
-  npm run dev
-  ```
-
-- **Build & encrypt locally:**
-  ```bash
-  STATICRYPT_PASSWORD="your_password" npm run build
-  ```
+That's it! It automatically builds your notes, encrypts all HTML pages, and publishes them to GitHub Pages.
 
 ---
 
-## 🔐 GitHub Pages & Encryption Setup
-
-1. **Set GitHub Repository Secret**:
-   - Go to your GitHub repository -> **Settings** -> **Secrets and variables** -> **Actions**.
-   - Click **New repository secret**.
-   - **Name**: `STATICRYPT_PASSWORD`
-   - **Value**: `YourChosenPassword`
-
-2. **Enable GitHub Pages**:
-   - Go to **Settings** -> **Pages**.
-   - Under **Source**, select **GitHub Actions**.
-
-3. **Deploy**:
-   - Every `git push` to `main` will automatically build the Markdown files, encrypt all generated HTML files using `STATICRYPT_PASSWORD`, and deploy to GitHub Pages!
-
----
-
-## 📱 Mobile Compatibility & Features
-- **Responsive Password Prompt**: Optimized layout for smartphones, tablets, and laptops.
-- **Session Persistence**: Includes a 30-day "Remember Me" option so you don't have to re-enter your password every time on mobile browsers.
-- **Client-side Decryption**: Uses standard WebCrypto API for secure, instant client-side decryption.
+## ⚙️ One-Time GitHub Setup (Settings > Pages)
+1. Go to [Repository Pages Settings](https://github.com/rakesh1988/random-static-htmls-encrypted/settings/pages).
+2. Under **Build and deployment > Source**, select **Deploy from a branch**.
+3. Under **Branch**, select `gh-pages` and `/ (root)`.
+4. Click **Save**.
