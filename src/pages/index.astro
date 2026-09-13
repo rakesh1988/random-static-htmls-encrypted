@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allNotes = await getCollection('notes');
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<BaseLayout title="Semester 2 Q&A Notes - Protected Hub">
+  <div style="margin-bottom: 2rem; text-align: center;">
+    <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; background: linear-gradient(135deg, #f8fafc, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      Semester 2 Q&A Study Notes
+    </h1>
+    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+      Secure, client-side encrypted collection of question-and-answer study materials for mobile and desktop access.
+    </p>
+  </div>
+
+  {allNotes.length === 0 ? (
+    <div style="background: var(--bg-card); border: 1px dashed var(--border-color); border-radius: var(--radius-md); padding: 3rem 1.5rem; text-align: center;">
+      <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">No notes added yet!</h3>
+      <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 1.5rem;">
+        Drop your <code>.md</code> files inside the <code>src/content/notes/</code> directory to automatically generate study pages.
+      </p>
+    </div>
+  ) : (
+    <div class="card-grid">
+      {allNotes.map((note) => (
+        <a href={`${baseUrl}notes/${note.slug}.html`} class="note-card">
+          <div>
+            {note.data.subject && (
+              <span class="tag-badge" style="margin-bottom: 0.75rem;">{note.data.subject}</span>
+            )}
+            <h2 class="card-title">{note.data.title}</h2>
+            {note.data.description && <p class="card-desc">{note.data.description}</p>}
+          </div>
+          <div class="card-meta">
+            <span>📅 {note.data.date || 'Sem 2'}</span>
+            <span style="color: var(--accent-secondary); font-weight: 600;">Read Notes &rarr;</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</BaseLayout>

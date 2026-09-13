@@ -1,0 +1,20 @@
+{
+  "name": "shwetha-sem-2-qna",
+  "version": "1.0.0",
+  "description": "Encrypted Markdown Q&A site hosted on GitHub Pages",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && npm run encrypt",
+    "build:raw": "astro build",
+    "encrypt": "node scripts/encrypt.mjs",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.15.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "staticrypt": "^3.2.1"
+  }
+}

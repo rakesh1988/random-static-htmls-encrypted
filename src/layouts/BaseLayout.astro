@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Shwetha Sem 2 Q&A Notes", 
+  description = "Protected Study & Exam Preparation Notes" 
+} = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
+  ? import.meta.env.BASE_URL 
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-container">
+        <a href={baseUrl} class="brand-link">
+          <span>📚 Sem 2 Q&A</span>
+          <span class="brand-badge">Encrypted</span>
+        </a>
+        <nav class="nav-links">
+          <a href={baseUrl} class="nav-item">All Notes</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <span class="lock-icon">🔒</span> Protected with StatiCrypt • Client-Side AES-256 Encryption
+      </p>
+    </footer>
+  </body>
+</html>
