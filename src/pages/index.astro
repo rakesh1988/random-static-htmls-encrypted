@@ -7,6 +7,11 @@ const allNotes = await getCollection('notes');
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
   ? import.meta.env.BASE_URL 
   : `${import.meta.env.BASE_URL}/`;
+
+function formatTitle(note: any) {
+  if (note.data.title) return note.data.title;
+  return note.slug.replace(/[-_]/g, ' ');
+}
 ---
 
 <BaseLayout title="Semester 2 Q&A Notes - Protected Hub">
@@ -34,11 +39,11 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
             {note.data.subject && (
               <span class="tag-badge" style="margin-bottom: 0.75rem;">{note.data.subject}</span>
             )}
-            <h2 class="card-title">{note.data.title}</h2>
+            <h2 class="card-title">{formatTitle(note)}</h2>
             {note.data.description && <p class="card-desc">{note.data.description}</p>}
           </div>
           <div class="card-meta">
-            <span>📅 {note.data.date || 'Sem 2'}</span>
+            <span>📅 {note.data.date || 'Sem 2 Study Guide'}</span>
             <span style="color: var(--accent-secondary); font-weight: 600;">Read Notes &rarr;</span>
           </div>
         </a>

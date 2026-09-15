@@ -16,9 +16,11 @@ const { Content } = await entry.render();
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') 
   ? import.meta.env.BASE_URL 
   : `${import.meta.env.BASE_URL}/`;
+
+const displayTitle = entry.data.title || entry.slug.replace(/[-_]/g, ' ');
 ---
 
-<BaseLayout title={`${entry.data.title} - Semester 2 Q&A`} description={entry.data.description}>
+<BaseLayout title={`${displayTitle} - Semester 2 Q&A`} description={entry.data.description}>
   <article>
     <header style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
       <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem;">
@@ -26,7 +28,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
         {entry.data.subject && <span class="tag-badge">{entry.data.subject}</span>}
       </div>
       <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.75rem; color: var(--text-primary);">
-        {entry.data.title}
+        {displayTitle}
       </h1>
       {entry.data.description && (
         <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1rem;">

@@ -48,5 +48,73 @@ const baseUrl = import.meta.env.BASE_URL.endsWith('/')
         <span class="lock-icon">🔒</span> Protected with StatiCrypt • Client-Side AES-256 Encryption
       </p>
     </footer>
+
+    <!-- Render Mermaid Flowcharts dynamically -->
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          darkMode: true,
+          background: '#151c2e',
+          primaryColor: '#6366f1',
+          primaryTextColor: '#f8fafc',
+          primaryBorderColor: '#818cf8',
+          lineColor: '#818cf8',
+          secondaryColor: '#1e293b',
+          tertiaryColor: '#0b0f19',
+          nodeBorder: '#6366f1',
+          clusterBkg: '#1e293b',
+          titleColor: '#f8fafc',
+          edgeLabelBackground: '#1e293b',
+          attributeBackgroundColorEven: '#151c2e',
+          attributeBackgroundColorOdd: '#1e293b',
+          fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+          fontSize: '14px',
+        }
+      });
+
+      function initMermaid() {
+        // Robust cross-browser selector: find all <code> elements with language-mermaid class
+        const codeBlocks = document.querySelectorAll('code.language-mermaid');
+        
+        if (codeBlocks.length === 0) return;
+
+        codeBlocks.forEach((codeEl) => {
+          const pre = codeEl.parentElement; // the <pre> wrapper
+          if (!pre) return;
+
+          const source = codeEl.textContent || '';
+          
+          // Create a styled mermaid container
+          const wrapper = document.createElement('div');
+          wrapper.style.cssText = `
+            background: #151c2e;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            text-align: center;
+          `;
+
+          const diagram = document.createElement('div');
+          diagram.className = 'mermaid';
+          diagram.textContent = source;
+          wrapper.appendChild(diagram);
+
+          pre.replaceWith(wrapper);
+        });
+
+        mermaid.run();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMermaid);
+      } else {
+        initMermaid();
+      }
+    </script>
   </body>
 </html>

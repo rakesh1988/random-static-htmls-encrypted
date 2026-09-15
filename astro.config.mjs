@@ -6,6 +6,7 @@ export default defineConfig({
   base: process.env.BASE_PATH || '/random-static-htmls-encrypted/',
   output: 'static',
   build: {
-    format: 'file'
+    format: 'file',
+    inlineStylesheets: 'always'
   }
 });
